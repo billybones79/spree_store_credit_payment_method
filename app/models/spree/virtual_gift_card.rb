@@ -9,8 +9,9 @@ class Spree::VirtualGiftCard < ActiveRecord::Base
 
 
   validates :amount, numericality: { greater_than: 0 }
-  validates_uniqueness_of :redemption_code, conditions: -> { where(redeemed_at: nil) }
+  validates_uniqueness_of :redemption_code, conditions: -> { where(redeemed_at: nil, redeemable: true) }
   # validates_presence_of :purchaser_id, :line_item_id
+  validates_presence_of :purchaser_id, if: Proc.new { |gc| gc.redeemable? }
   validates_presence_of :line_item_id
 
   scope :unredeemed, -> { where(redeemed_at: nil) }
@@ -21,7 +22,7 @@ class Spree::VirtualGiftCard < ActiveRecord::Base
   end
 
   def redeem(redeemer)
-    return false if redeemed?
+    return false if redeemed? || !redeemable?
     create_store_credit!({
       amount: amount,
       currency: currency,
@@ -34,12 +35,16 @@ class Spree::VirtualGiftCard < ActiveRecord::Base
     self.update_attributes( redeemed_at: Time.now, redeemer: redeemer )
   end
 
+  def make_redeemable!(purchaser:)
+    update_attributes!(redeemable: true, purchaser: purchaser, redemption_code: (self.redemption_code || generate_unique_redemption_code))
+  end
+
   def memo
     "Gift Card ##{self.redemption_code}"
   end
 
   def formatted_redemption_code
-    redemption_code.scan(/.{4}/).join('-')
+    redemption_code.present? ? redemption_code.scan(/.{4}/).join('-') : ""
   end
 
   def formatted_amount
