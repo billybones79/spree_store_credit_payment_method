@@ -5,7 +5,6 @@ module Spree
     module StoreCredit
       def add_store_credit_payments
 
-
         payments.store_credits.where(state: 'checkout').map(&:invalidate!)
 
         authorized_total = payments.pending.sum(:amount)
