@@ -14,13 +14,13 @@ module Spree
 
     module InstanceMethods
 
-      def finalize!
-        gift_cards.each do |gift_card|
-          gift_card.make_redeemable!(purchaser: user)
-        end
-
-        super
-      end
+      # def finalize!
+      #   gift_cards.each do |gift_card|
+      #     gift_card.make_redeemable!(purchaser: user)
+      #   end
+      #
+      #   super
+      # end
 
       # def create_gift_cards
       #   line_items.each do |item|
