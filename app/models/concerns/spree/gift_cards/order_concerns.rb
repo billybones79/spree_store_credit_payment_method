@@ -4,7 +4,7 @@ module Spree
 
     included do
       # base.state_machine.before_transition to: :confirm, do: :add_store_credit_payments
-      Spree::Order.state_machine.after_transition to: :complete, do: :send_gift_card_emails
+      # Spree::Order.state_machine.after_transition to: :complete, do: :send_gift_card_emails
 
       has_many :gift_cards, through: :line_items
 
