@@ -22,9 +22,9 @@ module Spree
       response = service.transfer
 
       if response
-        flash[:success] = "Solde ajouté : #{response} $".html_safe
+        flash[:success] = Spree.t("card_balance", amount: Spree::Money.new(response, {currency: 'CAD'}))
       else
-        flash[:error] = "Carte invalide ou opération impossible"
+        flash[:error] =  Spree.t("card_balance_invalid")
       end
 
       redirect_to new_gift_card_path

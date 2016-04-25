@@ -28,8 +28,8 @@ module SpreeStoreCredits::CheckoutControllerDecorator
         @order.add_store_credit_payments
 
         # Remove other payment method parameters.
-        params[:order].delete(:payments_attributes)
-        params.delete(:payment_source)
+        #params[:order].delete(:payments_attributes)
+        #params.delete(:payment_source)
 
         # Return to the Payments page if additional payment is needed.
         if @order.payments.valid.sum(:amount) < @order.total
