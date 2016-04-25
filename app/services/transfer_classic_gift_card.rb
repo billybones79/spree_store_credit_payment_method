@@ -104,7 +104,7 @@ class TransferClassicGiftCard
 
       balance = Spree::Money.new(response.params['benefit'], { currency: :cad }).money
 
-      return false unless balance > 0
+      return false unless balance.nonzero?
 
       Spree::StoreCredit.create!({
                                      amount: balance,
