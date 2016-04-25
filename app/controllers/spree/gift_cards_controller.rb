@@ -23,12 +23,12 @@ module Spree
       @balance = nil
 
       if response
-        flash[:success] = "Votre solde est de : #{response}"
+        flash[:success] = Spree.t("card_balance", amount: Spree::Money.new(response, {currency: 'CAD'}))
       else
-        flash[:error] = "Carte invalide ou opération impossible"
+        flash[:error] = Spree.t("card_balance_invalid")
       end
 
-      redirect_to query_traditional_gift_cards_path
+      redirect_to query_gift_cards_path
     end
 
     def redeem
@@ -55,5 +55,12 @@ module Spree
     def model_class
       Spree::VirtualGiftCard
     end
+
+    def redeem_fail_response
+      {
+          error_message: "#{Spree.t('gift_cards.errors.not_found')}. #{Spree.t('gift_cards.errors.please_try_again')}"
+      }
+    end
+
   end
 end

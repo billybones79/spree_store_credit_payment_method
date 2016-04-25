@@ -9,6 +9,8 @@ fr:
   spree:
     memo: "Mémo"
     select_a_store_credit_reason: Sélectionner une raison pour le crédit
+    card_balance: "Votre solde est de : %{amount}"
+    card_balance_invalid: "Carte invalide ou opération impossible"
     store_credit:
       credit: "Montant crédité"
       authorized: "Montant autorisé"

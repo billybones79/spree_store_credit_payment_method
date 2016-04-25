@@ -14,6 +14,8 @@ en:
         amount_used: "Amount used"
   spree:
     memo: "Memo"
+    card_balance: "Card balance is : %{amount}"
+    card_balance_invalid: "Invalid or incorrect card parameters"
     select_a_store_credit_reason: Select a reason for the store credit
     store_credit:
       credit: "Credit"
