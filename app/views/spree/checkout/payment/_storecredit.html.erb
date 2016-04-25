@@ -4,12 +4,12 @@
   <div class="open_payment_card">
     <br>
     <div class="column large coupon__block">
-      <%= form.label t('spree.gift_cards.number') %>
+      <%= label_tag t('spree.gift_cards.number') %>
       <%= text_field_tag 'redemption_code', nil, {size: 19, maxlength: 19, placeholder: Spree.t('gift_cards.redemption_code')} %>
     </div>
 
     <div class="column large coupon__block column_right">
-      <%= form.label t('spree.gift_cards.pin') %>
+      <%= label_tag t('spree.gift_cards.pin') %>
       <%= text_field_tag 'redemption_code', nil, {size: 19, maxlength: 19, placeholder: Spree.t('gift_cards.redemption_code')} %>
     </div>
     <div class="clear"></div>
