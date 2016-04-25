@@ -1,0 +1,1 @@
+#require 'active_merchant_extensions/moneris_decorator'

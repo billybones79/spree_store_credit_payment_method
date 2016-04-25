@@ -16,6 +16,10 @@ class Spree::Admin::GiftCardsController < Spree::Admin::BaseController
   def lookup
   end
 
+  def preview
+    render :preview, :layout => 'spree/layouts/gift_card_preview_layout'
+  end
+
   def update
     if @gift_card.update_attributes(gift_card_params)
       flash[:success] = Spree.t("admin.gift_cards.gift_card_updated")

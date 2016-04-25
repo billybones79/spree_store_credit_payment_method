@@ -38,7 +38,9 @@ fr:
       user_has_no_store_credits: "L'utilisateur n'a pas de crédit"
       select_one_store_credit: "Sélectionner une carte à utiliser"
     gift_cards:
+      use_my_credit: Utiliser mes cartes-cadeaux
       gift_card: "Carte-cadeau"
+      gift_cards: "Cartes-cadeaux"
       redeem: "Réclamer"
       redeem_gift_card: "Réclamer votre carte-cadeau"
       redemption_code: "Code d'autorisation"

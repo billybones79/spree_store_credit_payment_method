@@ -1,0 +1,14 @@
+$modal = $('div.modal').omniWindow();
+$modal.html("<%= escape_javascript(render partial: 'spree/gift_cards/preview') %>");
+var amount = $("#cart_form_with_email").find("[name=variant_id] :selected").text();
+var message = $("#options_gift_card_details_gift_message").val();
+var purchaser_name = $("#options_gift_card_details_purchaser_name").val();
+var recipient_name = $("#options_gift_card_details_recipient_name").val();
+
+amount != '' ? $("#gift_amount").html(amount) : null;
+message != '' ? $("#gift_message_preview").html(message) : null;
+purchaser_name != '' ? $("#purchaser_name_preview").html(purchaser_name) : null;
+recipient_name != '' ? $("#recipient_name_preview").html(recipient_name) : null;
+
+
+$modal.trigger('show');

@@ -1,0 +1,28 @@
+<div class="content">
+  <div class="container">
+
+    <%= render :partial => 'spree/shared/gift_cards_sidebar' %>
+
+    <div class="content-page content-text service_clientele clear">
+
+      <h2><%= t('spree.gift_cards.balance') %></h2>
+
+
+      <div class="column">
+        <div class="gift_img"><%= image_tag('activation_card.jpg') %></div>
+        <br>
+        <p><%= t('spree.gift_cards.balance_text') %></p>
+
+      </div>
+
+      <div class="column column_right">
+        <%= form_tag('/gift_cards/balance') do %>
+            <%= render :partial => 'purchase_form' %>
+        <% end %>
+      </div>
+
+    </div><!-- .content-page -->
+
+
+  </div><!-- .container -->
+</div>

@@ -5,12 +5,15 @@ module Spree
     module StoreCredit
       def add_store_credit_payments
 
+        return if user.nil?
+        return if payments.store_credits.checkout.empty? && user.total_available_store_credit.zero?
+
         payments.store_credits.where(state: 'checkout').map(&:invalidate!)
 
         authorized_total = payments.pending.sum(:amount)
         remaining_total = outstanding_balance - authorized_total
 
-        if user && user.store_credits.any?
+        if user.store_credits.any?
           payment_method = Spree::PaymentMethod.find_by_type('Spree::PaymentMethod::StoreCredit')
           raise "Store credit payment method could not be found" unless payment_method
 
@@ -27,17 +30,18 @@ module Spree
         other_payments = payments.checkout.not_store_credits
 
         if remaining_total.zero?
-          other_payments.each(&:invalidate!)
-        elsif other_payments.size == 1
-          other_payments.first.update_attributes!(amount: remaining_total)
+         other_payments.each(&:invalidate!)
         end
 
-        payments.reset
+        #elsif other_payments.size == 1
+        #other_payments.first.update_attributes!(amount: remaining_total)
+        #end
 
-        if payments.where(state: %w(checkout pending)).sum(:amount) != total
-          errors.add(:base, Spree.t("store_credit.errors.unable_to_fund")) and return false
-        end
+        #payments.reset
 
+        #if payments.where(state: %w(checkout pending)).sum(:amount) != total
+        #return false
+        #end
       end
 
       def covered_by_store_credit?
@@ -100,11 +104,11 @@ module Spree
 
       def create_store_credit_payment(payment_method, credit, amount)
         payments.create!(
-          source: credit,
-          payment_method: payment_method,
-          amount: amount,
-          state: 'checkout',
-          response_code: credit.generate_authorization_code
+            source: credit,
+            payment_method: payment_method,
+            amount: amount,
+            state: 'checkout',
+            response_code: credit.generate_authorization_code
         )
       end
 

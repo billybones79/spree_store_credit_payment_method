@@ -19,6 +19,7 @@ module SpreeStoreCredits
 
     initializer "spree.gateway.payment_methods", :after => "spree.register.payment_methods" do |app|
       app.config.spree.payment_methods << Spree::PaymentMethod::StoreCredit
+      app.config.spree.payment_methods << Spree::Gateway::MonerisGiftCard
     end
   end
 end

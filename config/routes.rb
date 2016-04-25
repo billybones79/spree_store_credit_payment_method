@@ -34,7 +34,17 @@ Spree::Core::Engine.routes.draw do
     resources :gift_cards, only: [] do
       collection do
         post :redeem
+        get :preview
       end
+    end
+  end
+
+  resources :gift_cards do
+    collection do
+      get :preview
+      get :query
+      post :balance
+      post :redeem
     end
   end
 

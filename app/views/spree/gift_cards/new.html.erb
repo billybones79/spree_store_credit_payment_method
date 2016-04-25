@@ -1,0 +1,43 @@
+<div class="content">
+  <div class="container">
+
+    <%= render :partial => 'spree/shared/gift_cards_sidebar' %>
+
+    <div class="content-page content-text service_clientele clear">
+
+      <h2><%=  t('spree.gift_cards.redeem') %></h2>
+
+      <div class="column">
+        <div id="img_redeem_tgc" class="gift_img inactive__block"><%= image_tag('activation_card.jpg') %></div>
+        <div id="img_redeem_vgc" class="gift_img active__block"><%= image_tag('activation_virtualcard.jpg') %></div>
+      </div>
+
+
+      <div class="column column_right">
+
+
+        <label for="select_redeem"><%=  t('spree.gift_cards.redeem') %></label>
+        <select name="select_redeem" id="select_redeem">
+          <option value="redeem_vgc"><%=  t('spree.gift_cards.virtual') %></option>
+          <option value="redeem_tgc"><%=  t('spree.gift_cards.trad') %></option>
+        </select>
+
+        <div id="redeem_vgc" class="active__block">
+          <%= form_for :gift_card, url: redeem_gift_cards_path do |f| %>
+              <%= render :partial => 'redemption_form', :locals => { :f => f } %>
+          <% end %>
+        </div>
+
+        <div id="redeem_tgc" class="inactive__block">
+          <%= form_tag('/gift_cards') do %>
+              <%= render :partial => 'purchase_form' %>
+          <% end %>
+        </div>
+
+      </div>
+
+    </div><!-- .content-page -->
+
+
+  </div><!-- .container -->
+</div>

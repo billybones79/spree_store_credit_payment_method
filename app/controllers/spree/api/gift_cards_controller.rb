@@ -13,6 +13,10 @@ class Spree::Api::GiftCardsController < Spree::Api::BaseController
     end
   end
 
+  def preview
+    render :preview, :layout => 'spree/layouts/gift_card_preview_layout'
+  end
+
   private
 
   def redeem_fail_response

@@ -44,7 +44,9 @@ en:
       user_has_no_store_credits: "User does not have any available store credit"
       select_one_store_credit: "Select store credit to go towards remaining balance"
     gift_cards:
+      use_my_credit: Use my gift cards
       gift_card: "Gift Card"
+      gift_cards: "Gift cards"
       redeem: "Redeem"
       redeem_gift_card: "Redeem Gift Card"
       redemption_code: "Redemption Code"

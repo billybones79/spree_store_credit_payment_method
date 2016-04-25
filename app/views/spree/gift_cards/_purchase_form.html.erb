@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="alpha twelve columns">
+    <%= label :card_number,  t('spree.gift_cards.number') %>
+    <%= text_field_tag :gift_card_number, '', :class => 'form-control' %>
+
+    <%= label :cvd, t('spree.gift_cards.pin') %>
+    <%= text_field_tag :gift_card_cvd, '', :class => 'form-control' %>
+
+    <div class="form-actions" data-hook="buttons">
+      <%= button_tag "<i class='fa fa-send'></i> #{Spree.t(:submit)}".html_safe, :id => 'contact_us_contact_submit', :type => :submit, :class => 'button large', data: {disable_with: "<i class='fa fa-refresh fa-spin'></i> #{Spree.t(:loading)}".html_safe } %>
+    </div>
+
+
+  </div>
+</div>
