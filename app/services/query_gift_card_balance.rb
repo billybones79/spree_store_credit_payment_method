@@ -15,7 +15,7 @@ class QueryGiftCardBalance
   end
 
   def balance
-    #begin
+    begin
       response = provider.gc_inquiry(card)
 
       if response.success?
@@ -24,9 +24,9 @@ class QueryGiftCardBalance
         0
       end
 
-    #rescue => e
-     # raise Exception
-    #end
+    rescue => e
+     puts e
+    end
   end
 
 

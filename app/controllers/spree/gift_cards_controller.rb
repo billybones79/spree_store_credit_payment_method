@@ -1,7 +1,8 @@
 module Spree
   class GiftCardsController < Spree::StoreController
 
-    before_action :logged_in_user, only: [:new, :create]
+    before_action :logged_in_user, only: [:new, :create, :redeem]
+    before_filter :load_gift_card_for_redemption, only: [:redeem]
 
     def preview
       render :preview, :layout => 'spree/layouts/gift_card_preview_layout'
@@ -13,6 +14,20 @@ module Spree
 
     def show
 
+    end
+
+    def transfer
+      service = TransferClassicGiftCard.new(params, try_spree_current_user)
+
+      response = service.transfer
+
+      if response
+        flash[:success] = "Solde ajouté : #{response} $".html_safe
+      else
+        flash[:error] = "Carte invalide ou opération impossible"
+      end
+
+      redirect_to new_gift_card_path
     end
 
     def balance
@@ -32,24 +47,31 @@ module Spree
     end
 
     def redeem
-      redemption_code = Spree::RedemptionCodeGenerator.format_redemption_code_for_lookup(params[:redemption_code] || "")
-      @gift_card = Spree::VirtualGiftCard.active_by_redemption_code(redemption_code)
-
-      if !@gift_card
-        render status: :not_found, json: redeem_fail_response
-      elsif @gift_card.redeem(try_spree_current_user)
-        render status: :created, json: {status: 'success'}
+      if @gift_card.redeem(try_spree_current_user)
+        flash[:success] = Spree.t("admin.gift_cards.redeemed_gift_card")
+        redirect_to account_path
       else
-        render status: 422, json: redeem_fail_response
+        flash[:error] = Spree.t("admin.gift_cards.errors.unable_to_redeem_gift_card")
+        redirect_to new_gift_card_path
       end
     end
 
     private
 
-    def logged_in_user
-      unless spree_current_user
-        redirect_to new_spree_user_session_path
+    def load_gift_card_for_redemption
+      redemption_code = Spree::RedemptionCodeGenerator.format_redemption_code_for_lookup(params[:gift_card][:redemption_code])
+      @gift_card = Spree::VirtualGiftCard.active_by_redemption_code(redemption_code)
+
+      if @gift_card.blank?
+        flash[:error] = Spree.t("admin.gift_cards.errors.not_found")
+        redirect_to new_gift_card_path
       end
+    end
+
+    def logged_in_user
+      return if spree_current_user
+      store_location
+        redirect_to new_spree_user_session_path
     end
 
     def model_class
@@ -62,5 +84,6 @@ module Spree
       }
     end
 
+    # Introduces a registration step whenever the +registration_step+ preference is true.
   end
 end

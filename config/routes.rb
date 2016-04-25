@@ -44,6 +44,7 @@ Spree::Core::Engine.routes.draw do
       get :preview
       get :query
       post :balance
+      post :transfer
       post :redeem
     end
   end

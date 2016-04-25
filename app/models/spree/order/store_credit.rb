@@ -27,11 +27,11 @@ module Spree
           end
         end
 
-        other_payments = payments.checkout.not_store_credits
+        #other_payments = payments.checkout.not_store_credits
 
-        if remaining_total.zero?
-         other_payments.each(&:invalidate!)
-        end
+        #if remaining_total.zero?
+         #other_payments.each(&:invalidate!)
+        #end
 
         #elsif other_payments.size == 1
         #other_payments.first.update_attributes!(amount: remaining_total)
