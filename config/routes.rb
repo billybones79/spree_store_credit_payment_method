@@ -47,7 +47,13 @@ Spree::Core::Engine.routes.draw do
       post :transfer
       post :redeem
     end
+
+    member do
+      get :edit_gift
+
+    end
   end
 
+  patch "/gift_cards/update/:id" => 'gift_cards#update_gift', as: :update_gift
   post '/checkout/redeem', to: 'checkout#redeem'
 end

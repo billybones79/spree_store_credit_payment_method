@@ -16,6 +16,36 @@ module Spree
 
     end
 
+    def edit_gift
+
+      @gc = Spree::VirtualGiftCard.find(params[:id])
+
+      unless @gc.line_item.order_id == @current_order.id
+        redirect_to root_path
+      end
+
+      respond_to do |format|
+        format.js {}
+      end
+
+    end
+
+    def update_gift
+      @user = try_spree_current_user
+
+      @gc = Spree::VirtualGiftCard.find(params[:id])
+
+      unless @gc.line_item.order_id == @current_order.id
+        redirect_to root_path
+      end
+
+      if @gc.update_attributes(update_gift_params)
+        flash[:success] = "La carte-cadeau à été mise à jour"
+      else
+        render :json => { error: "Champs invalides"}, status: :unprocessable_entity
+      end
+    end
+
     def transfer
       service = TransferClassicGiftCard.new(params, try_spree_current_user)
 
@@ -57,6 +87,10 @@ module Spree
     end
 
     private
+
+    def update_gift_params
+      params.require(:virtual_gift_card).permit(:purchaser_name, :recipient_name, :gift_message, :recipient_email, :locale)
+    end
 
     def load_gift_card_for_redemption
       redemption_code = Spree::RedemptionCodeGenerator.format_redemption_code_for_lookup(params[:gift_card][:redemption_code])

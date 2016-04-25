@@ -1,0 +1,5 @@
+$modal = $('div.modal');
+$modal.trigger('hide');
+<% flash.each do |type, message| %>
+        +$("#flash_messages").html("<div class='alert alert-<%= type %>'><%= message.html_safe %></div>")
+<% end %>

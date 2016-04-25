@@ -1,0 +1,39 @@
+<section class='login'>
+
+  <%= render :partial => 'spree/shared/error_messages', :locals => { :target => gc } %>
+
+  <div id="existing-customer">
+    <div data-hook="">
+      <% is_remote = false if local_assigns[:is_remote].nil? %>
+
+      <%= form_for gc, :remote => is_remote,  :authenticity_token => true, :url => update_gift_path, :novalidate => "novalidate" do |f| %>
+          <div id="">
+
+            <p>
+              <%= f.label :purchaser_name, t('spree.gift_cards.sender_name') %>
+              <%= f.text_field :purchaser_name, :class => 'title required', :tabindex => 1, autofocus: true %>
+            </p>
+            <p>
+              <%= f.label :recipient_name, t('spree.gift_cards.recipient_name') %>
+              <%= f.text_field :recipient_name, :class => 'title required', :tabindex => 2 %>
+            </p>
+
+            <p>
+              <%= f.label :recipient_email, t('spree.gift_cards.recipient_email') %>
+              <%= f.email_field :recipient_email, :class => 'title required', :tabindex => 3 %>
+            </p>
+
+            <p>
+              <%= f.label :gift_message, t('spree.gift_cards.gift_message') %>
+              <%= f.text_area :gift_message, :class => 'title required', :tabindex => 4 %>
+            </p>
+
+
+          </div>
+          <%= button_tag Spree.t(:update), :class => 'button full', data: {disable_with: "<i class='fa fa-fw fa-cog fa-spin'></i> "+ t("checkout.processing")} %>
+      <% end %>
+
+    </div>
+  </div>
+</section>
+

@@ -13,6 +13,7 @@ class Spree::VirtualGiftCard < ActiveRecord::Base
   # validates_presence_of :purchaser_id, :line_item_id
   validates_presence_of :purchaser_id, if: Proc.new { |gc| gc.redeemable? }
   validates_presence_of :line_item_id
+  validates_presence_of :recipient_email, :recipient_name
 
   scope :unredeemed, -> { where(redeemed_at: nil) }
   scope :by_redemption_code, -> (redemption_code) { where(redemption_code: redemption_code) }

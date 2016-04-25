@@ -1,0 +1,4 @@
+$modal = $('div.modal').omniWindow();
+$modal.html("<%= escape_javascript(render partial: 'spree/gift_cards/form', :locals => {gc: @gc, is_remote: true} ) %>");
+$("form.new_spree_user").validate();
+$modal.trigger('show');
