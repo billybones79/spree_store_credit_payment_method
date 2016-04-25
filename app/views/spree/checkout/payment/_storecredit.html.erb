@@ -4,23 +4,20 @@
   <div class="open_payment_card">
     <br>
     <div class="column large coupon__block">
-      <%= label_tag t('spree.gift_cards.number') %>
+      <%= label_tag t('spree.gift_cards.redemption_code') %>
       <%= text_field_tag 'redemption_code', nil, {size: 19, maxlength: 19, placeholder: Spree.t('gift_cards.redemption_code')} %>
     </div>
 
-    <div class="column large coupon__block column_right">
-      <%= label_tag t('spree.gift_cards.pin') %>
-      <%= text_field_tag 'redemption_code', nil, {size: 19, maxlength: 19, placeholder: Spree.t('gift_cards.redemption_code')} %>
-    </div>
     <div class="clear"></div>
     <%= button_tag Spree.t('gift_cards.redeem'), name: 'redeem_gift_card', class: 'button small outline', id: 'redeem_gift_card' %>
     <p class="message" style="display: none;"></p>
   </div>
-  <% if @order.could_use_store_credit? %>
+  <% if @order.could_use_store_credit? || @order.using_store_credit? %>
       <br>
       <div class="column large coupon__block">
-        <label><%= Spree.t("gift_cards.gift_cards") + " : #{@order.display_total_available_store_credit}" %></label>
+        <label><%= Spree.t("gift_cards.gift_cards") + " : #{@order.display_total_available_store_credit}" %><%= "(#{@order.total_applied_store_credit})" if @order.total_available_store_credit.zero? %></label>
         <p class="field checkbox" data-hook="use_billing">
+          <%= hidden_field_tag "apply_store_credit", -1, :id => "hidden_apply_store_credit" %>
           <%= check_box_tag "apply_store_credit", '1', 0 %>
           <label id="order_use_store_credit" class="custom-checkbox" for="apply_store_credit">
             <span></span>

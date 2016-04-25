@@ -26,16 +26,31 @@ module SpreeStoreCredits::CheckoutControllerDecorator
     def add_store_credit_payments
       if params['apply_store_credit'].to_i == 1
         @order.add_store_credit_payments
+      elsif params['apply_store_credit'].to_i == -1
 
+        puts "###########################################################"
+        puts "###########################################################"
+        puts "###########################################################"
+        puts "###########################################################"
+        puts "###########################################################"
+        puts "###########################################################"
+        puts "###########################################################"
+        puts "###########################################################"
+        puts "###########################################################"
+        puts "###########################################################"
+        puts "###########################################################"
+        puts "###########################################################"
+
+        @order.payments.store_credits.where(state: 'checkout').map(&:invalidate!)
         # Remove other payment method parameters.
         #params[:order].delete(:payments_attributes)
         #params.delete(:payment_source)
 
         # Return to the Payments page if additional payment is needed.
-        if @order.payments.valid.sum(:amount) < @order.total
-          flash[:error] = Spree.t("store_credit.errors.unable_to_fund")
-          redirect_to checkout_state_path(@order.state) and return
-        end
+        #if @order.payments.valid.sum(:amount) < @order.total
+        #  flash[:error] = Spree.t("store_credit.errors.unable_to_fund")
+         # redirect_to checkout_state_path(@order.state) and return
+        #end
       end
     end
 

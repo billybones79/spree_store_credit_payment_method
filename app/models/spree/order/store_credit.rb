@@ -31,17 +31,16 @@ module Spree
 
         if remaining_total.zero?
           other_payments.each(&:invalidate!)
+        elsif other_payments.size == 1
+          other_payments.first.update_attributes!(amount: remaining_total)
         end
 
-        #elsif other_payments.size == 1
-        #other_payments.first.update_attributes!(amount: remaining_total)
-        #end
+        payments.reset
 
-        #payments.reset
-
-        #if payments.where(state: %w(checkout pending)).sum(:amount) != total
-        #return false
-        #end
+        if payments.where(state: %w(checkout pending)).sum(:amount) != total
+          errors.add(:base, Spree.t("store_credit.errors.unable_to_fund"))
+          false
+        end
       end
 
       def covered_by_store_credit?
