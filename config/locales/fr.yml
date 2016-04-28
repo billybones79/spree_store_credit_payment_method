@@ -25,7 +25,7 @@ fr:
         cannot_change_used_store_credit: Vous ne pouvez pas modifier un crédit déja utilisé
         unable_to_create: Impossible d'ajouter le crédit
         unable_to_delete: Impossible d'effacer le crédit
-        unable_to_fund: Impossible de payer avec ce crédit
+        unable_to_fund: "Utiliser une autre méthode de paiement pour acquitter le solde restant : %{amount}"
         unable_to_update: Impossible de mettre le crédit à jour
     store_credit_categories: Catégories de crédit
     store_credit_payment_method:
