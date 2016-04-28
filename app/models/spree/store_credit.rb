@@ -116,6 +116,7 @@ module Spree
 
     def void(authorization_code, options={})
       if auth_event = store_credit_events.find_by(action: AUTHORIZE_ACTION, authorization_code: authorization_code)
+
         self.update_attributes!({
           action: VOID_ACTION,
           action_amount: auth_event.amount,

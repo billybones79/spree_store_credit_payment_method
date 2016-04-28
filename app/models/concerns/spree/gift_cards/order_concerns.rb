@@ -47,7 +47,7 @@ module Spree
         super
 
         # Free up authorized store credits
-        payments.store_credits.pending.each { |payment| payment.void! }
+        payments.store_credits.pending.each(&:void_transaction!)
 
         # payment_state has to be updated because after_cancel on
         # super does an update_column on the payment_state to set
@@ -70,8 +70,7 @@ module Spree
           end
         end
 
-        if @updating_params[:order] && (@updating_params[:order][:payments_attributes] ||
-            @updating_params[:order][:existing_card])
+        if @updating_params[:order] && (@updating_params[:order][:payments_attributes] || @updating_params[:order][:existing_card])
           @updating_params[:order][:payments_attributes] ||= [{}]
           # @updating_params[:order][:payments_attributes].first[:amount] = total
           @updating_params[:order][:payments_attributes].first[:amount] = order_total_after_store_credit
