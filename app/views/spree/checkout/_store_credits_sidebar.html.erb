@@ -3,5 +3,8 @@
     <td><%= Spree.t("gift_cards.gift_cards") %>:</td>
     <td class="summary-table__amount"><span id='summary-store-credit'><%= order.display_total_applied_store_credit.to_html %></span></td>
   </tr>
-
+    <tr data-hook="order_details_store_credit">
+      <td>À payer:</td>
+      <td class="summary-table__amount"><span id='summary-store-credit'><%= order.display_order_total_after_store_credit.to_html %></span></td>
+    </tr>
 <% end %>
