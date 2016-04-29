@@ -56,4 +56,5 @@ Spree::Core::Engine.routes.draw do
 
   patch "/gift_cards/update/:id" => 'gift_cards#update_gift', as: :update_gift
   post '/checkout/redeem', to: 'checkout#redeem'
+  post '/checkout/cancel_gift_payment', to: 'checkout#cancel_gift_payment'
 end

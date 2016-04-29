@@ -21,6 +21,12 @@ module SpreeStoreCredits::CheckoutControllerDecorator
       end
     end
 
+    def cancel_gift_payment
+      @order.payments.store_credits.where(state: 'checkout').map(&:invalidate!)
+
+      render status: :created, json: {status: 'success'}
+    end
+
     private
 
     def add_store_credit_payments
