@@ -52,6 +52,7 @@ en:
       gift_cards: "Gift cards"
       redeem: "Redeem"
       redeem_gift_card: "Redeem Gift Card"
+      redeemed_gift_card: "Gift card was successfully redeemed"
       redemption_code: "Redemption Code"
       errors:
         not_found: "Gift card was not found"
@@ -64,7 +65,7 @@ en:
         gift_card: "Gift Card"
         redeem: "Redeem"
         redeem_gift_card: "Redeem Gift Card"
-        redeemed_gift_card: "Redeemed Gift Card"
+        redeemed_gift_card: "Gi"
         redemption_code: "Redemption Code"
         errors:
           not_found: "Gift card was not found"

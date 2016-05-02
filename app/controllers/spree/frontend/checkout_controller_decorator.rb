@@ -15,6 +15,7 @@ module SpreeStoreCredits::CheckoutControllerDecorator
       if !@gift_card
         render status: :not_found, json: redeem_fail_response
       elsif @gift_card.redeem(try_spree_current_user)
+        flash[:success] = Spree.t('gift_cards.redeemed_gift_card')
         render status: :created, json: {status: 'success'}
       else
         render status: 422, json: redeem_fail_response

@@ -1,3 +1,4 @@
+<p class="alert alert-error" style="display: none;"></p>
 
 <div class="dashed_border for_button">
   <div class="btn_payment_card"><a class="button medium outline"><%= label_tag t('spree.gift_cards.pay_with_gift_card') %></a></div>
@@ -10,7 +11,7 @@
 
     <div class="clear"></div>
     <%= button_tag Spree.t('gift_cards.redeem'), name: 'redeem_gift_card', class: 'button small outline', id: 'redeem_gift_card' %>
-    <p class="message" style="display: none;"></p>
+
   </div>
 
   <% if @order.using_store_credit? %>

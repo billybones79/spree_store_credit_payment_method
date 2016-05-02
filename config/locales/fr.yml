@@ -46,6 +46,7 @@ fr:
       gift_cards: "Cartes-cadeaux"
       redeem: "Réclamer"
       redeem_gift_card: "Réclamer votre carte-cadeau"
+      redeemed_gift_card: "La carte-cadeau a été reclamée avec succès"
       redemption_code: "Code d'autorisation"
       errors:
         not_found: "Carte-cadeau introuvable"
