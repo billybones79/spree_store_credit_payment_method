@@ -5,7 +5,10 @@ module Spree
     before_filter :load_gift_card_for_redemption, only: [:redeem]
 
     def preview
-      render :preview, :layout => 'spree/layouts/gift_card_preview_layout'
+      #render :preview, :layout => 'spree/layouts/gift_card_preview_layout'
+      respond_to do |format|
+        format.js {}
+      end
     end
 
     def query
