@@ -1,5 +1,6 @@
 Spree::Core::Engine.routes.draw do
   namespace :admin do
+    resources :store_credit_categories
     resources :users, only: [] do
       resources :store_credits
 
